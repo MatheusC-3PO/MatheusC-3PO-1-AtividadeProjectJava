@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class EstoqueEstoque {
+    private final List<ProdutoEstoque> produtos = new ArrayList<>();
+
+    public void cadastrarProduto(ProdutoEstoque produto) {
+        produtos.add(produto);
+    }
+
+    public ProdutoEstoque buscarPorId(int id) {
+        for (ProdutoEstoque p : produtos) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public boolean entradaEstoque(int id, int quantidade) {
+        ProdutoEstoque produto = buscarPorId(id);
+        if (produto != null) {
+            produto.adicionarQuantidade(quantidade);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean saidaEstoque(int id, int quantidade) {
+        ProdutoEstoque produto = buscarPorId(id);
+        if (produto != null) {
+            return produto.removerQuantidade(quantidade);
+        }
+        return false;
+    }
+
+    public void listarProdutos() {
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+        } else {
+            for (ProdutoEstoque p : produtos) {
+                System.out.println(p);
+            }
+        }
+    }
+}
